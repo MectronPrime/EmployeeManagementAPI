@@ -26,4 +26,11 @@ class Employee extends Authenticatable
         'yearly_increasing_bonus',
         'monthly_net_salary',
     ];
+
+    protected $casts = [
+        'monthly_salary_package'   => 'float',
+        'monthly_tax_value'        => 'float',
+        'yearly_increasing_bonus'  => 'float',
+        'monthly_net_salary'       => 'float',
+    ];
 }

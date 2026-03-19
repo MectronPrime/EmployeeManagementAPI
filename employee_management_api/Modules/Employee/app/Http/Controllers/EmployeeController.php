@@ -1,56 +1,42 @@
 <?php
 
-namespace Modules\Employee\app\Http\Controllers;
+namespace Modules\Employees\app\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Controller;
+use Modules\Employees\app\Http\Requests\AddEmployeeRequest;
+use Modules\Employees\Services\EmployeeService;
 
 class EmployeeController extends Controller
 {
+    public function __construct(
+        protected EmployeeService $employeeService
+    ) {}
+
     /**
-     * Display a listing of the resource.
+     * POST /api/employees — Add a new employee.
      */
-    public function index()
+    public function store(AddEmployeeRequest $request): JsonResponse
     {
-        return view('employee::index');
+        $id = $this->employeeService->createEmployee($request->validated());
+
+        return response()->json([
+            'message'     => 'Employee created successfully.',
+            'employee_id' => $id,
+        ], 201);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * GET /api/employees — Retrieve all employees with full salary report.
      */
-    public function create()
+    public function index(): JsonResponse
     {
-        return view('employee::create');
+        $employees = $this->employeeService->getAllEmployees();
+
+        return response()->json([
+            'data' => $employees,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request) {}
-
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
-    {
-        return view('employee::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('employee::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id) {}
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id) {}
+    // update(), destroy(), search() → Day 02
 }

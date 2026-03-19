@@ -3,7 +3,6 @@
 namespace Modules\Employee\app\Repositories;
 
 use Illuminate\Support\Facades\DB;
-use Modules\Employee\Repositories\EmployeeInterface;
 
 class EmployeeImplementation implements EmployeeInterface
 {

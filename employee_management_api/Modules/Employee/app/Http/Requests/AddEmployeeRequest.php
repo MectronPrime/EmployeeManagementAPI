@@ -1,8 +1,9 @@
 <?php
 
-namespace Modules\Employees\Http\Requests;
+namespace Modules\Employees\app\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+
 
 class AddEmployeeRequest extends FormRequest
 {
