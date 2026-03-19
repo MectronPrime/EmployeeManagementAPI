@@ -4,13 +4,22 @@ namespace Modules\Employee\Repositories;
 
 interface EmployeeInterface
 {
-    public function getAllEmployees();
+    //Insert a new employee record and return the new ID.
+    public function create(array $data): int;
 
-    public function getEmployeeById($id);
+    // Retrieve all employee records.
+    
+    public function all(): array;
 
-    public function createEmployee(array $employeeData);
+    //Find an employee by ID.
+    public function findById(int $id): ?object;
 
-    public function updateEmployee($id, array $employeeData);
+    // Update phone and/or salary for a given employee.
+    public function update(int $id, array $data): bool;
 
-    public function deleteEmployee($id);
+    //Delete an employee record.
+    public function delete(int $id): bool;
+
+    //Search employees by phone number (exact match).
+    public function findByPhone(string $phone): ?object;
 }
