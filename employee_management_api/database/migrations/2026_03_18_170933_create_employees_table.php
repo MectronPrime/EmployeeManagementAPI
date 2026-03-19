@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('phone')->unique();
+            $table->enum('designation', ['Intern', 'Associate', 'Senior', 'Manager']);
+            $table->decimal('monthly_salary_package', 12, 2);
+            $table->decimal('monthly_tax_value', 12, 2)->default(0.00);
+            $table->decimal('yearly_increasing_bonus', 12, 2)->default(0.00);
+            $table->decimal('monthly_net_salary', 12, 2);
             $table->timestamps();
         });
     }

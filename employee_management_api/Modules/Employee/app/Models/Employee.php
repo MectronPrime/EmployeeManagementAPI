@@ -10,7 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Employee extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use  HasFactory, Notifiable;
 
     protected $table = 'employees';
 
