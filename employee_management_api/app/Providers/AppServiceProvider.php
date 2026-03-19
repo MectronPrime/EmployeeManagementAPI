@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
-use Modules\Employee\app\Repositories\Employeeimplementation;
-use Modules\Employee\Repositories\EmployeeInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,11 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //Bind interface to concrete repository implementation
-         $this->app->bind(
-            EmployeeInterface::class,
-            EmployeeImplementation::class
-        );
+        //
     }
 
     /**
@@ -30,9 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Schema::defaultStringLength(191);
-        $this->loadMigrationsFrom(module_path('Employees', 'Database/Migrations'));
-
+       Schema::defaultStringLength(191);
     }
 
     /**
