@@ -25,9 +25,48 @@ class EmployeeImplementation implements EmployeeInterface
     public function all(): array
     {
         return DB::table('employees')
-            ->orderBy('createdat' ,'desc')
-            -get()
+            ->orderBy('created_at' ,'desc')
+            ->get()
             ->toArray();
     }
+ 
+    //find a single employee by id
+    public function findById(int $id): ?object
+    {
+        return DB::table('employees')
+            ->where('id', $id)
+            ->first();
+    }
 
+    //update employee phone and/or salary
+    public function update(int $id, array $data): bool
+    {
+        $updateData = [];
+        if (isset($data['phone'])) {
+            $updateData['phone'] = $data['phone'];
+        }
+        if (isset($data['monthly_salary_package'])) {
+            $updateData['monthly_salary_package'] = $data['monthly_salary_package'];
+        }
+        if (empty($updateData)) {
+            return false; // No data to update
+        }
+        return DB::table('employees')
+            ->where('id', $id)
+            ->update($updateData) > 0;
+    }
+    //delete an employee record
+    public function delete(int $id): bool
+    {
+        return DB::table('employees')
+            ->where('id', $id)
+            ->delete() > 0;
+    }
+    //search employee by phone number
+    public function findByPhone(string $phone): ?object
+    {
+        return DB::table('employees')
+            ->where('phone', $phone)
+            ->first();
+    }
 }   
