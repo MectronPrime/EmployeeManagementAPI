@@ -5,7 +5,7 @@ namespace Modules\Employees\app\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Modules\Employees\app\Http\Requests\AddEmployeeRequest;
-use Modules\Employees\Services\EmployeeService;
+use Modules\Employees\app\Services\EmployeeService;
 
 class EmployeeController extends Controller
 {

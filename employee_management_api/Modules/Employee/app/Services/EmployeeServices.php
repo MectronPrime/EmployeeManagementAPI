@@ -1,13 +1,17 @@
 <?php
 
-namespace Modules\Employees\Services;
+namespace Modules\Employees\app\Services;
 
-use Modules\Employees\Repositories\EmployeeRepositoryInterface;
+use Modules\Employee\app\Repositories\EmployeeInterface as RepositoriesEmployeeInterface;
 
 class EmployeeService
 {
+    // public function __construct(
+    //     protected EmployeeInterface $employeeRepository
+    // ) {}
+
     public function __construct(
-        protected EmployeeRepositoryInterface $employeeRepository
+        protected RepositoriesEmployeeInterface $employeeRepository
     ) {}
 
     /**
