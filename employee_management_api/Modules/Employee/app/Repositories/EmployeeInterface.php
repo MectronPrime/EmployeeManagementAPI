@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Employee\Repositories;
+namespace Modules\Employee\app\Repositories;
 
 interface EmployeeInterface
 {
