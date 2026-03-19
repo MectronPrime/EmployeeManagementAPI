@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Modules\Employees\app\Http\Requests\AddEmployeeRequest;
 use Modules\Employees\app\Services\EmployeeService;
+use Symfony\Component\HttpFoundation\Request;
 
 class EmployeeController extends Controller
 {
@@ -38,5 +39,48 @@ class EmployeeController extends Controller
         ]);
     }
 
-    // update(), destroy(), search() → Day 02
+    // Update an employee's phone number and/or monthly salary package.
+    public function update(UpdateEmployeeRequest $request, int $id): JsonResponse
+    {
+        $updated = $this->employeeService->updateEmployee($id, $request->validated());
+
+        if (! $updated) {
+            return response()->json(['message' => 'Employee not found.'], 404);
+        }
+
+        return response()->json(['message' => 'Employee updated successfully.']);
+    }
+
+    //Remove an employee by ID.
+
+    public function destroy(int $id): JsonResponse
+    {
+        $deleted = $this->employeeService->deleteEmployee($id);
+
+        if (! $deleted) {
+            return response()->json(['message' => 'Employee not found.'], 404);
+        }
+
+        return response()->json(['message' => 'Employee deleted successfully.']);
+    }
+
+    // find an employee by phone number and return their details along with the yearly net salary.
+    public function search(Request $request): JsonResponse
+    {
+        $phone = $request->query('phone');
+
+        if (! $phone) {
+            return response()->json(['message' => 'Phone number is required.'], 400);
+        }
+
+        $employee = $this->employeeService->searchByPhone($phone);
+
+        if (! $employee) {
+            return response()->json(['message' => 'Employee not found.'], 404);
+        }
+
+        return response()->json([
+            'data' => $employee,
+        ]);
+    }
 }

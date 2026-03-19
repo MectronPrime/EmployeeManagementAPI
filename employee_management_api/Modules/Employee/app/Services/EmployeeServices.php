@@ -93,8 +93,38 @@ class EmployeeService
                 'yearly_increasing_bonus' => $employee->yearly_increasing_bonus,
                 'monthly_net_salary'      => $employee->monthly_net_salary,
                 'yearly_net_salary'       => ($employee->monthly_net_salary * 12)
-                                             + $employee->yearly_increasing_bonus,
+                    + $employee->yearly_increasing_bonus,
             ];
         }, $employees);
+    }
+
+    //delete and employee by ID
+    public function deleteEmployee(int $id): bool
+    {
+        return $this->employeeRepository->delete($id);
+    }
+
+    // search for an employee by phone number 
+    public function searchByPhone(string $phone): ?array
+    {
+        $employee = $this->employeeRepository->findByPhone($phone);
+
+        if (! $employee) {
+            return null;
+        }
+
+        return [
+            'id'                      => $employee->id,
+            'name'                    => $employee->name,
+            'email'                   => $employee->email,
+            'phone'                   => $employee->phone,
+            'designation'             => $employee->designation,
+            'monthly_salary_package'  => $employee->monthly_salary_package,
+            'monthly_tax_value'       => $employee->monthly_tax_value,
+            'yearly_increasing_bonus' => $employee->yearly_increasing_bonus,
+            'monthly_net_salary'      => $employee->monthly_net_salary,
+            'yearly_net_salary'       => ($employee->monthly_net_salary * 12)
+                + $employee->yearly_increasing_bonus,
+        ];
     }
 }
