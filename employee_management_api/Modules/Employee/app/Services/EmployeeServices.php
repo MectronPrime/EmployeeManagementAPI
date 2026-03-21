@@ -123,8 +123,31 @@ class EmployeeService
             'monthly_tax_value'       => $employee->monthly_tax_value,
             'yearly_increasing_bonus' => $employee->yearly_increasing_bonus,
             'monthly_net_salary'      => $employee->monthly_net_salary,
-            'yearly_net_salary'       => ($employee->monthly_net_salary * 12)
-                + $employee->yearly_increasing_bonus,
+            'yearly_net_salary'       => ($employee->monthly_net_salary * 12) + $employee->yearly_increasing_bonus,
         ];
+    }
+
+    public function updateEmployee(int $id, array $validated): bool
+    {
+        $employee = $this->employeeRepository->findById($id);
+
+        if (! $employee) {
+            return false;
+        }
+
+        $salary = $validated['monthly_salary_package'] ?? $employee->monthly_salary_package;
+        $designation = $validated['designation'] ?? $employee->designation;
+
+        $tax    = $this->calculateMonthlyTax($salary);
+        $bonus  = $this->calculateYearlyBonus($salary, $designation);
+        $net    = $salary - $tax;
+
+        return $this->employeeRepository->update($id, [
+            ...$validated,
+            'monthly_salary_package'  => $salary,
+            'monthly_tax_value'       => $tax,
+            'yearly_increasing_bonus' => $bonus,
+            'monthly_net_salary'      => $net,
+        ]);
     }
 }

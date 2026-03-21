@@ -4,9 +4,10 @@ namespace Modules\Employees\app\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
 use Modules\Employees\app\Http\Requests\AddEmployeeRequest;
 use Modules\Employees\app\Services\EmployeeService;
-use Symfony\Component\HttpFoundation\Request;
+use Modules\Employees\app\Http\Requests\UpdateEmployeeRequest;
 
 class EmployeeController extends Controller
 {
@@ -78,7 +79,6 @@ class EmployeeController extends Controller
         if (! $employee) {
             return response()->json(['message' => 'Employee not found.'], 404);
         }
-
         return response()->json([
             'data' => $employee,
         ]);
