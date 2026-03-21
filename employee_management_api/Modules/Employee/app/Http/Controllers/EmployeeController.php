@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Employees\app\Http\Controllers;
+namespace Modules\Employee\app\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
-use Modules\Employees\app\Http\Requests\AddEmployeeRequest;
-use Modules\Employees\app\Services\EmployeeService;
-use Modules\Employees\app\Http\Requests\UpdateEmployeeRequest;
+use Modules\Employee\app\Http\Requests\AddEmployeeRequest;
+use Modules\Employee\app\Services\EmployeeService;
+use Modules\Employee\app\Http\Requests\UpdateEmployeeRequest;
 
 class EmployeeController extends Controller
 {

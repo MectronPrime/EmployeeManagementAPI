@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Employees\app\Http\Controllers\EmployeeController;
+use Modules\Employee\app\Http\Controllers\EmployeeController;
 
 Route::prefix('employees')->group(function () {
     Route::post('/',          [EmployeeController::class, 'store']);   // Add

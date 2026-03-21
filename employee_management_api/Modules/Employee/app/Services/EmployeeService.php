@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Employees\app\Services;
+namespace Modules\Employee\app\Services;
 
 use Modules\Employee\app\Repositories\EmployeeInterface as RepositoriesEmployeeInterface;
 
@@ -151,3 +151,4 @@ class EmployeeService
         ]);
     }
 }
+
