@@ -5,7 +5,7 @@
 
         <v-row justify="center">
             <v-col cols="12" md="6">
-                //form for adding new employee
+                <!-- form for adding new employee -->
                 <v-form ref="form" v-model="formValid">
                     <v-text-field
                         label="Name"
@@ -27,16 +27,13 @@
                         required
                     />
 
-                    <v-dropdown
+
+                    <v-select
                         label="Designation"
                         v-model="employee.designation"
+                        :items="['Manager', 'Senior', 'Associate', 'Intern']"
                         required
-                    >
-                        <v-dropdown-item value="Manager">Manager</v-dropdown-item>
-                        <v-dropdown-item value="Senior">Senior Developer</v-dropdown-item>
-                        <v-dropdown-item value="Associate">Associate</v-dropdown-item>
-                        <v-dropdown-item value="Intern">Intern</v-dropdown-item>
-                    </v-dropdown>
+                    />
 
                     <v-text-field
                         label="Monthly Salary Package"

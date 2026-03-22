@@ -1,17 +1,9 @@
 <template>
     <div>
-        <h2>Welcome to the Employee Management System.</h2>
+        <Header />
     </div>
-    
+
     <AddNewEmployee />
-
-    <!-- Employee Delete Button -->
-    <v-row class="mb-4">
-        <v-col cols="12" class="text-right">
-            <v-btn color="error" @click="$router.push('/employee-management/delete')">Delete Employee</v-btn>
-        </v-col>
-    </v-row>
-
 
     <!-- Employee Table -->
     <v-data-table
@@ -19,12 +11,30 @@
         :items="employees"
         class="elevation-1"
     >
-
     </v-data-table>
 
 </template>
 
 <script>
 import AddNewEmployee from './AddNewEmployee.vue';
+import Header from '@/components/Header.vue';
 
-</script>
+export default {
+    components: {
+        AddNewEmployee,
+        Header,
+    },
+    data() {
+        return {
+            employees: [],
+            headers: [
+                { title: 'Name', key: 'name' },
+                { title: 'Email', key: 'email' },
+                { title: 'Phone', key: 'phone' },
+                { title: 'Designation', key: 'designation' },
+                { title: 'Monthly Salary', key: 'monthly_salary_package' },
+            ],
+        };
+    },
+};
+</script>

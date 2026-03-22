@@ -1,18 +1,18 @@
 export default [
     {
        path: '/employee-management',
-       component: import("@layout/layout.vue"),
+       component: () => import("@layout/layout.vue"),
 
        children: [
               { 
-                path: '/',
-                component: import("@/views/employee-management/index.vue")
+                path: '',
+                component: () => import("@/views/employee-management/index.vue")
               },
               {
-                path: "CreateEmployee",
-                component: import("@/views/employee-management/CreateEmployee.vue")
+                path: "/CreateEmployee",
+                component: () => import("@/views/employee-management/AddNewEmployee.vue")
               }
        ]
 
     },
-];
+];
