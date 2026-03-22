@@ -1,9 +1,13 @@
+<script setup>
+
+</script>
+
 <template>
   <div id = "app">
-    <h1>Employee Management System</h1>
-
-    <EmployeeSearch />
-  
-    
+   <v-app>
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
   </div>
 </template>

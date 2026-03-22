@@ -1,15 +1,9 @@
 <template>
     <div>
-        <h2>Employee Management</h2>
-        <p>Welcome to the Employee Management System.</p>
+        <h2>Welcome to the Employee Management System.</h2>
     </div>
     
-    <!-- Add New Employee button -->
-    <v-row class="mb-4">
-        <v-col cols="12" class="text-right">
-            <v-btn color="primary" @click="$router.push('/employee-management/add')">Add New Employee</v-btn>
-        </v-col>
-    </v-row>
+    <AddNewEmployee />
 
     <!-- Employee Delete Button -->
     <v-row class="mb-4">
@@ -31,5 +25,6 @@
 </template>
 
 <script>
+import AddNewEmployee from './AddNewEmployee.vue';
 
 </script>
