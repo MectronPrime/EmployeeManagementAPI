@@ -39,15 +39,26 @@
             >
                 <!-- Custom Actions column slot -->
                 <template #item.actions="{ item }">
-                    <v-btn
-                        size="small"
-                        color="primary"
-                        variant="tonal"
-                        prepend-icon="mdi-pencil"
-                        @click="openEditDialog(item)"
-                    >
-                        Edit
-                    </v-btn>
+                    <div class="d-flex ga-2">
+                        <v-btn
+                            size="small"
+                            color="primary"
+                            variant="tonal"
+                            prepend-icon="mdi-pencil"
+                            @click="openEditDialog(item)"
+                        >
+                            Edit
+                        </v-btn>
+                        <v-btn
+                            size="small"
+                            color="red"
+                            variant="tonal"
+                            prepend-icon="mdi-delete"
+                            @click="openDeleteDialog(item)"
+                        >
+                            Delete
+                        </v-btn>
+                    </div>
                 </template>
             </v-data-table>
         </v-card>
@@ -60,11 +71,20 @@
         :employee="selectedEmployee"
         @saved="fetchEmployees"
     />
+
+    <!-- Delete Employee Confirmation Dialog -->
+    <DeleteEmployee
+        v-if="selectedEmployee"
+        v-model="deleteDialog"
+        :employee="selectedEmployee"
+        @deleted="fetchEmployees"
+    />
 </template>
 
 <script>
 import AddNewEmployee from './AddNewEmployee.vue';
 import EditEmployee from './EditEmployee.vue';
+import DeleteEmployee from './DeleteEmployee.vue';
 import Header from '@/components/Header.vue';
 import EmployeeApi from '@/Services/Modules/EmployeeApi';
 
@@ -72,6 +92,7 @@ export default {
     components: {
         AddNewEmployee,
         EditEmployee,
+        DeleteEmployee,
         Header,
     },
 
@@ -80,6 +101,7 @@ export default {
             employees: [],
             loading: false,
             editDialog: false,
+            deleteDialog: false,
             selectedEmployee: null,
             headers: [
                 { title: 'Name',           key: 'name',                   sortable: true  },
@@ -113,6 +135,11 @@ export default {
         openEditDialog(employee) {
             this.selectedEmployee = { ...employee };
             this.editDialog = true;
+        },
+
+        openDeleteDialog(employee) {
+            this.selectedEmployee = { ...employee };
+            this.deleteDialog = true;
         },
     },
 };

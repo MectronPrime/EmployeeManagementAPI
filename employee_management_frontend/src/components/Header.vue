@@ -8,10 +8,10 @@
         <!-- Action Buttons -->
         <div class="buttons">
           <router-link to="/NewEmployee" class="btn"
-            >Add New Client</router-link
+            >Add New Employee</router-link
           >
           <router-link to="/AllEmployee" class="btn2"
-            >View Clients</router-link
+            >View Employee</router-link
           >
         </div>
       </div>
