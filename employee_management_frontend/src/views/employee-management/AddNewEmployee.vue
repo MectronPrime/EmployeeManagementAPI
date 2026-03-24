@@ -94,7 +94,11 @@
 </template>
 
 <script>
+import EmployeeApi from '@/Services/Modules/EmployeeApi';
+
 export default {
+    emits: ['created'],
+
     data() {
         return {
             employee: {
@@ -175,24 +179,22 @@ export default {
             };
 
             try {
-                // const response = await fetch('/api/employees', {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify(payload),
-                // });
-
-                //     if (!response.ok) {
-                //         const body = await response.json().catch(() => ({}));
-                //         throw new Error(body.message || 'Failed to create employee.');
-                //     }
+                // Call actual backend
+                await EmployeeApi.CreateEmployee(payload);
 
                 this.message = 'Employee created successfully.';
+                // Tell parent to refresh list
+                this.$emit('created');
                 this.resetForm();
             } catch (err) {
-                this.error = err.message || 'Something went wrong during save.';
+                this.error =
+                    err?.response?.data?.message ||
+                    err.message ||
+                    'Something went wrong during save.';
             } finally {
                 this.isSubmitting = false;
             }
+
         },
 
         //form reset after successful submission

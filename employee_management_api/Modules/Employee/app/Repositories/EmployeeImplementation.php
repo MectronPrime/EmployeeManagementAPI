@@ -2,70 +2,73 @@
 
 namespace Modules\Employee\app\Repositories;
 
-use Illuminate\Support\Facades\DB;
+use Modules\Employee\app\Models\Employee;
+
 
 class EmployeeImplementation implements EmployeeInterface
 {
-    //insert new employee using query builder
     public function create(array $data): int
     {
-        return DB::table('employees')->insertGetId([
-            'name'                    => $data['name'],
-            'email'                   => $data['email'],
-            'phone'                   => $data['phone'],
-            'designation'             => $data['designation'],
-            'monthly_salary_package'  => $data['monthly_salary_package'],
-            'monthly_tax_value'       => $data['monthly_tax_value'],
-            'yearly_increasing_bonus' => $data['yearly_increasing_bonus'],
-            'monthly_net_salary'      => $data['monthly_net_salary'],
-        ]);
+        $employee = new Employee();
+
+        $employee->name = $data['name'];
+        $employee->email = $data['email'];
+        $employee->phone = $data['phone'];
+        $employee->designation = $data['designation'];
+        $employee->monthly_salary_package = $data['monthly_salary_package'];
+        $employee->monthly_tax_value = $data['monthly_tax_value'];
+        $employee->yearly_increasing_bonus = $data['yearly_increasing_bonus'];
+        $employee->monthly_net_salary = $data['monthly_net_salary'];
+        $employee->save();
+        
+        return $employee->id;
     }
     // Retrieve all employees ordered by most recently
     public function all(): array
     {
-        return DB::table('employees')
-            ->orderBy('created_at' ,'desc')
-            ->get()
-            ->toArray();
-    }
- 
-    //find a single employee by id
-    public function findById(int $id): ?object
-    {
-        return DB::table('employees')
-            ->where('id', $id)
-            ->first();
+        return Employee::orderBy('created_at', 'desc')
+        ->get()
+        ->toArray();
     }
 
     //update employee phone and/or salary
-    public function update(int $id, array $data): bool
+    public function update($name, array $data): bool
     {
-        $updateData = [];
+        $employee = Employee::find($name);
+        
+        if (!$employee) {
+            return false;
+        }
+        
         if (isset($data['phone'])) {
-            $updateData['phone'] = $data['phone'];
+            $employee->phone = $data['phone'];
         }
+        
         if (isset($data['monthly_salary_package'])) {
-            $updateData['monthly_salary_package'] = $data['monthly_salary_package'];
+            $employee->monthly_salary_package = $data['monthly_salary_package'];
         }
-        if (empty($updateData)) {
-            return false; // No data to update
+        
+        if (isset($data['monthly_net_salary'])) {
+            $employee->monthly_net_salary = $data['monthly_net_salary'];
         }
-        return DB::table('employees')
-            ->where('id', $id)
-            ->update($updateData) > 0;
+        
+        return $employee->save();
+
     }
     //delete an employee record
-    public function delete(int $id): bool
+    public function delete(String $name): bool
     {
-        return DB::table('employees')
-            ->where('id', $id)
-            ->delete() > 0;
+        $employee = Employee::find($name);
+        if (!$employee) {
+            return false;
+        }
+        return $employee->delete();
     }
     //search employee by phone number
-    public function findByPhone(string $phone): ?object
-    {
-        return DB::table('employees')
-            ->where('phone', $phone)
-            ->first();
-    }
+    public function findByPhone(string $phone): ?array
+     {
+        $employee = Employee::where('phone', $phone)->first();
+        return $employee ? $employee->toArray() : null;
+     }
+    
 }   
